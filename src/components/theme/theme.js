@@ -15,5 +15,20 @@ export default createMuiTheme({
     secondary: {
       main: `${arcOrange}`
     }
+  },
+  typography: {
+    tab: {
+      fontFamily: 'Raleway',
+      textTransform: 'none',
+      fontSize: '1rem',
+      fontWeight: '500'
+    },
+    estimate: {
+      fontFamily: 'Pacifico',
+      fontSize: '1rem',
+      textTransform: 'none',
+      color: '#0A1747',
+      letterSpacing: '1px'
+    }
   }
 });
