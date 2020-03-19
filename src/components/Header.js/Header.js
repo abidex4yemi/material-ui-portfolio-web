@@ -6,6 +6,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import ElevationScroll from './ElevationScroll';
 import useStyles from './useStyles';
@@ -13,33 +15,111 @@ import logo from '../../assets/logo.svg';
 
 const Header = (props) => {
   const classes = useStyles();
-
   const [active, setActive] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [showMenu, setShowMenu] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleSelectedTab = (e, value) => {
     setActive(value);
   };
 
-  const persistActiveTabOnPageRefresh = () => {
+  const handleMenuItemClick = (e, i) => {
+    setSelectedIndex(i);
+  };
+
+  const renderServicesMenuItem = () => {
+    const menuOptions = [
+      {
+        name: 'Web design & development',
+        path: '/websites'
+      },
+      {
+        name: 'Custom development',
+        path: '/custom-software'
+      },
+      {
+        name: 'Mobile development',
+        path: '/mobile-apps'
+      }
+    ];
+
+    return menuOptions.map((option, index) => (
+      <MenuItem
+        onClick={(e) => {
+          handleMenuItemClick(e, index);
+          handleClose(e);
+          setActive(2);
+        }}
+        component={Link}
+        to={option.path}
+        classes={{ root: classes.menuItem }}
+        selected={index === selectedIndex}
+        key={index}
+      >
+        {option.name}
+      </MenuItem>
+    ));
+  };
+
+  const persistActiveTabStyleOnPageRefresh = () => {
     switch (window.location.pathname) {
       case '/':
-        setActive(0);
+        if (active !== 0) {
+          setActive(0);
+        }
         break;
       case '/revolution':
-        setActive(1);
+        if (active !== 1) {
+          setActive(1);
+        }
+        break;
+      case '/services':
+        if (active !== 2) {
+          setActive(2);
+        }
         break;
       case '/about':
-        setActive(2);
+        if (active !== 3) {
+          setActive(3);
+        }
         break;
       case '/contact':
-        setActive(3);
+        if (active !== 4) {
+          setActive(4);
+        }
+        break;
+      case '/websites':
+        if (selectedIndex !== 0) {
+          setSelectedIndex(0);
+        }
+        break;
+      case '/custom-software':
+        if (selectedIndex !== 1) {
+          setSelectedIndex(1);
+        }
+        break;
+      case '/mobile-apps':
+        if (selectedIndex !== 2) {
+          setSelectedIndex(2);
+        }
         break;
       default:
         break;
     }
   };
 
-  useEffect(persistActiveTabOnPageRefresh);
+  useEffect(persistActiveTabStyleOnPageRefresh);
+
+  const handleShowServiceMenu = (e) => {
+    setAnchorEl(e.currentTarget);
+    setShowMenu(true);
+  };
+
+  const handleClose = (e) => {
+    setAnchorEl(null);
+    setShowMenu(false);
+  };
 
   return (
     <>
@@ -81,6 +161,30 @@ const Header = (props) => {
                 className={classes.tab}
                 label="The Revolution"
               />
+              <div>
+                <Tab
+                  component={Link}
+                  to="/services"
+                  className={classes.tab}
+                  label="Our Services"
+                  onMouseOver={handleShowServiceMenu}
+                  aria-controls={anchorEl ? 'services-menu' : undefined}
+                  aria-haspopup={anchorEl ? true : 'undefined'}
+                />
+
+                <Menu
+                  id="services-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={showMenu}
+                  onClose={handleClose}
+                  MenuListProps={{ onMouseLeave: handleClose }}
+                  classes={{ paper: classes.menu }}
+                  elevation={0}
+                >
+                  {renderServicesMenuItem()}
+                </Menu>
+              </div>
               <Tab
                 component={Link}
                 to="/about"

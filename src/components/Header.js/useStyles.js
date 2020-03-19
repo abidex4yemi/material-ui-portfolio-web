@@ -25,6 +25,20 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '50px',
     marginLeft: '10px'
   },
+  menu: {
+    marginTop: '30px',
+    backgroundColor: theme.palette.common.blue,
+    borderRadius: '0',
+    color: '#fff',
+    paddingBottom: '0'
+  },
+  menuItem: {
+    ...theme.typography.tab,
+    opacity: 0.7,
+    '&:hover': {
+      opacity: 1
+    }
+  },
   button: {
     ...theme.typography.estimate,
     borderRadius: '50px',
