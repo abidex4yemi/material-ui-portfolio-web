@@ -39,6 +39,15 @@ const useStyles = makeStyles((theme) => ({
       opacity: 1
     }
   },
+  mobileMenuIconContainer: {
+    backgroundColor: 'transparent',
+    marginLeft: 'auto'
+  },
+  mobileMenuIcon: {
+    color: '#fff',
+    width: '25px',
+    height: '25px'
+  },
   button: {
     ...theme.typography.estimate,
     borderRadius: '50px',

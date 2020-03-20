@@ -8,17 +8,28 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from '@material-ui/core/IconButton';
 
 import ElevationScroll from './ElevationScroll';
 import useStyles from './useStyles';
 import logo from '../../assets/logo.svg';
 
 const Header = (props) => {
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
   const classes = useStyles();
+  const theme = useTheme();
+  const isScreenWidthBelow600 = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [active, setActive] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [showSideMenu, setShowSideMenu] = useState(false);
 
   const handleSelectedTab = (e, value) => {
     setActive(value);
@@ -121,6 +132,99 @@ const Header = (props) => {
     setShowMenu(false);
   };
 
+  const MobileNav = () => {
+    return (
+      <>
+        <SwipeableDrawer
+          disableBackdropTransition={!iOS}
+          disableDiscovery={iOS}
+          onClose={() => setShowSideMenu(false)}
+          open={showSideMenu}
+          onOpen={() => setShowSideMenu(true)}
+        >
+          example
+        </SwipeableDrawer>
+        <IconButton
+          onClick={() => setShowSideMenu(!showSideMenu)}
+          disableRipple
+          className={classes.mobileMenuIconContainer}
+        >
+          <MenuIcon className={classes.mobileMenuIcon} />
+        </IconButton>
+      </>
+    );
+  };
+
+  const renderNavigationLinks = () => {
+    if (isScreenWidthBelow600) {
+      return <MobileNav />;
+    }
+
+    return (
+      <>
+        <Tabs
+          value={active}
+          aria-label="navigation"
+          className={classes.tabContainer}
+          onChange={handleSelectedTab}
+          indicatorColor="primary"
+        >
+          <Tab component={Link} to="/" className={classes.tab} label="Home" />
+          <Tab
+            component={Link}
+            to="/revolution"
+            className={classes.tab}
+            label="The Revolution"
+          />
+          <div>
+            <Tab
+              component={Link}
+              to="/services"
+              className={classes.tab}
+              label="Our Services"
+              onMouseOver={handleShowServiceMenu}
+              aria-controls={anchorEl ? 'services-menu' : undefined}
+              aria-haspopup={anchorEl ? true : 'undefined'}
+            />
+
+            <Menu
+              id="services-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={showMenu}
+              onClose={handleClose}
+              MenuListProps={{ onMouseLeave: handleClose }}
+              classes={{ paper: classes.menu }}
+              elevation={0}
+            >
+              {renderServicesMenuItem()}
+            </Menu>
+          </div>
+          <Tab
+            component={Link}
+            to="/about"
+            className={classes.tab}
+            label="About Us"
+          />
+          <Tab
+            component={Link}
+            to="/contact"
+            className={classes.tab}
+            label="Contact Us"
+          />
+        </Tabs>
+
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+        >
+          Free estimate
+        </Button>
+      </>
+    );
+  };
+
   return (
     <>
       <ElevationScroll {...props}>
@@ -141,71 +245,7 @@ const Header = (props) => {
             >
               <img src={logo} alt="logo img" className={classes.logo} />
             </Button>
-
-            <Tabs
-              value={active}
-              aria-label="navigation"
-              className={classes.tabContainer}
-              onChange={handleSelectedTab}
-              indicatorColor="primary"
-            >
-              <Tab
-                component={Link}
-                to="/"
-                className={classes.tab}
-                label="Home"
-              />
-              <Tab
-                component={Link}
-                to="/revolution"
-                className={classes.tab}
-                label="The Revolution"
-              />
-              <div>
-                <Tab
-                  component={Link}
-                  to="/services"
-                  className={classes.tab}
-                  label="Our Services"
-                  onMouseOver={handleShowServiceMenu}
-                  aria-controls={anchorEl ? 'services-menu' : undefined}
-                  aria-haspopup={anchorEl ? true : 'undefined'}
-                />
-
-                <Menu
-                  id="services-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={showMenu}
-                  onClose={handleClose}
-                  MenuListProps={{ onMouseLeave: handleClose }}
-                  classes={{ paper: classes.menu }}
-                  elevation={0}
-                >
-                  {renderServicesMenuItem()}
-                </Menu>
-              </div>
-              <Tab
-                component={Link}
-                to="/about"
-                className={classes.tab}
-                label="About Us"
-              />
-              <Tab
-                component={Link}
-                to="/contact"
-                className={classes.tab}
-                label="Contact Us"
-              />
-            </Tabs>
-
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-            >
-              Free estimate
-            </Button>
+            {renderNavigationLinks()}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
