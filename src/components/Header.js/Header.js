@@ -13,12 +13,16 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
 
 import ElevationScroll from './ElevationScroll';
 import useStyles from './useStyles';
 import logo from '../../assets/logo.svg';
 
 const Header = (props) => {
+  // support for swiping side menu using touch for apple product
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const classes = useStyles();
@@ -43,16 +47,16 @@ const Header = (props) => {
     const menuOptions = [
       {
         name: 'Web design & development',
-        path: '/websites'
+        path: '/websites',
       },
       {
         name: 'Custom development',
-        path: '/custom-software'
+        path: '/custom-software',
       },
       {
         name: 'Mobile development',
-        path: '/mobile-apps'
-      }
+        path: '/mobile-apps',
+      },
     ];
 
     return menuOptions.map((option, index) => (
@@ -68,7 +72,7 @@ const Header = (props) => {
         selected={index === selectedIndex}
         key={index}
       >
-        {option.name}
+        {option.name}{' '}
       </MenuItem>
     ));
   };
@@ -141,8 +145,98 @@ const Header = (props) => {
           onClose={() => setShowSideMenu(false)}
           open={showSideMenu}
           onOpen={() => setShowSideMenu(true)}
+          classes={{ paper: classes.mobileMenuContainer }}
         >
-          example
+          <List disablePadding>
+            <ListItem
+              divider
+              button
+              component={Link}
+              to="/"
+              onClick={() => setShowSideMenu(false)}
+            >
+              <ListItemText
+                className={classes.mobileListItemText}
+                disableTypography
+              >
+                Home{' '}
+              </ListItemText>{' '}
+            </ListItem>
+            <ListItem
+              divider
+              button
+              component={Link}
+              to="/revolution"
+              onClick={() => setShowSideMenu(false)}
+            >
+              <ListItemText
+                className={classes.mobileListItemText}
+                disableTypography
+              >
+                The Revolution{' '}
+              </ListItemText>{' '}
+            </ListItem>
+            <ListItem
+              divider
+              button
+              component={Link}
+              to="/services"
+              onClick={() => setShowSideMenu(false)}
+            >
+              <ListItemText
+                className={classes.mobileListItemText}
+                disableTypography
+              >
+                Services
+              </ListItemText>
+            </ListItem>
+            <ListItem
+              divider
+              button
+              component={Link}
+              to="/about"
+              onClick={() => setShowSideMenu(false)}
+            >
+              <ListItemText
+                className={classes.mobileListItemText}
+                disableTypography
+              >
+                About Us{' '}
+              </ListItemText>
+            </ListItem>{' '}
+            <ListItem
+              divider
+              button
+              component={Link}
+              to="/contact"
+              onClick={() => setShowSideMenu(false)}
+            >
+              <ListItemText
+                className={classes.mobileListItemText}
+                disableTypography
+              >
+                Contact Us{' '}
+              </ListItemText>
+            </ListItem>
+            <ListItem
+              divider
+              button
+              component={Link}
+              to="/estimate"
+              onClick={() => setShowSideMenu(false)}
+              className={classes.estimateBtnMobile}
+            >
+              <ListItemText
+                className={[
+                  classes.mobileListItemText,
+                  classes.estimateBtnText,
+                ]}
+                disableTypography
+              >
+                Free estimate
+              </ListItemText>{' '}
+            </ListItem>{' '}
+          </List>
         </SwipeableDrawer>
         <IconButton
           onClick={() => setShowSideMenu(!showSideMenu)}
@@ -150,7 +244,7 @@ const Header = (props) => {
           className={classes.mobileMenuIconContainer}
         >
           <MenuIcon className={classes.mobileMenuIcon} />
-        </IconButton>
+        </IconButton>{' '}
       </>
     );
   };
@@ -186,7 +280,6 @@ const Header = (props) => {
               aria-controls={anchorEl ? 'services-menu' : undefined}
               aria-haspopup={anchorEl ? true : 'undefined'}
             />
-
             <Menu
               id="services-menu"
               anchorEl={anchorEl}
@@ -198,7 +291,7 @@ const Header = (props) => {
               elevation={0}
             >
               {renderServicesMenuItem()}
-            </Menu>
+            </Menu>{' '}
           </div>
           <Tab
             component={Link}
@@ -213,14 +306,13 @@ const Header = (props) => {
             label="Contact Us"
           />
         </Tabs>
-
         <Button
           variant="contained"
           color="secondary"
           className={classes.button}
         >
-          Free estimate
-        </Button>
+          Free estimate{' '}
+        </Button>{' '}
       </>
     );
   };
@@ -244,12 +336,12 @@ const Header = (props) => {
               disableRipple
             >
               <img src={logo} alt="logo img" className={classes.logo} />
-            </Button>
-            {renderNavigationLinks()}
+            </Button>{' '}
+            {renderNavigationLinks()}{' '}
           </Toolbar>
         </AppBar>
-      </ElevationScroll>
-      <div className={classes.toolBarMargin}></div>
+      </ElevationScroll>{' '}
+      <div className={classes.toolBarMargin}></div>{' '}
     </>
   );
 };

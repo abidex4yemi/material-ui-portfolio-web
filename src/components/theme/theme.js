@@ -2,12 +2,14 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const arcBlue = '#0B72B9';
 const arcOrange = '#FFBA60';
+const purple = '#0A1747';
 
 export default createMuiTheme({
   palette: {
     common: {
       blue: `${arcBlue}`,
-      orange: `${arcOrange}`
+      orange: `${arcOrange}`,
+      purple: `${purple}`
     },
     primary: {
       main: `${arcBlue}`
@@ -27,7 +29,7 @@ export default createMuiTheme({
       fontFamily: 'Pacifico',
       fontSize: '1.1rem',
       textTransform: 'none',
-      color: '#0A1747',
+      color: `${purple}`,
       letterSpacing: '1px'
     }
   }
