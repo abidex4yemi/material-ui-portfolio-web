@@ -9,28 +9,28 @@ export default createMuiTheme({
     common: {
       blue: `${arcBlue}`,
       orange: `${arcOrange}`,
-      purple: `${purple}`
+      purple: `${purple}`,
     },
     primary: {
-      main: `${arcBlue}`
+      main: `${arcBlue}`,
     },
     secondary: {
-      main: `${arcOrange}`
-    }
+      main: `${arcOrange}`,
+    },
   },
   typography: {
     tab: {
       fontFamily: 'Raleway',
       textTransform: 'none',
       fontSize: '1rem',
-      fontWeight: '500'
+      fontWeight: '500',
     },
     estimate: {
       fontFamily: 'Pacifico',
-      fontSize: '1.1rem',
+      fontSize: '1.2rem',
       textTransform: 'none',
       color: `${purple}`,
-      letterSpacing: '1px'
-    }
-  }
+      letterSpacing: '1px',
+    },
+  },
 });

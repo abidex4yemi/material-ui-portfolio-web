@@ -153,7 +153,11 @@ const Header = (props) => {
               button
               component={Link}
               to="/"
-              onClick={() => setShowSideMenu(false)}
+              onClick={() => {
+                setShowSideMenu(false);
+                setActive(0);
+              }}
+              selected={active === 0}
             >
               <ListItemText
                 className={classes.mobileListItemText}
@@ -167,7 +171,11 @@ const Header = (props) => {
               button
               component={Link}
               to="/revolution"
-              onClick={() => setShowSideMenu(false)}
+              onClick={() => {
+                setShowSideMenu(false);
+                setActive(1);
+              }}
+              selected={active === 1}
             >
               <ListItemText
                 className={classes.mobileListItemText}
@@ -181,7 +189,11 @@ const Header = (props) => {
               button
               component={Link}
               to="/services"
-              onClick={() => setShowSideMenu(false)}
+              onClick={() => {
+                setShowSideMenu(false);
+                setActive(2);
+              }}
+              selected={active === 2}
             >
               <ListItemText
                 className={classes.mobileListItemText}
@@ -195,7 +207,11 @@ const Header = (props) => {
               button
               component={Link}
               to="/about"
-              onClick={() => setShowSideMenu(false)}
+              onClick={() => {
+                setShowSideMenu(false);
+                setActive(3);
+              }}
+              selected={active === 3}
             >
               <ListItemText
                 className={classes.mobileListItemText}
@@ -209,7 +225,11 @@ const Header = (props) => {
               button
               component={Link}
               to="/contact"
-              onClick={() => setShowSideMenu(false)}
+              onClick={() => {
+                setShowSideMenu(false);
+                setActive(4);
+              }}
+              selected={active === 4}
             >
               <ListItemText
                 className={classes.mobileListItemText}
@@ -223,7 +243,11 @@ const Header = (props) => {
               button
               component={Link}
               to="/estimate"
-              onClick={() => setShowSideMenu(false)}
+              onClick={() => {
+                setShowSideMenu(false);
+                setActive(5);
+              }}
+              selected={active === 5}
               className={classes.estimateBtnMobile}
             >
               <ListItemText

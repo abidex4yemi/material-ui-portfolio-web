@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
   mobileListItemText: {
     ...theme.typography.tab,
     color: '#fff',
+    '&:hover': {
+      color: '#fff',
+    },
   },
   estimateBtnMobile: {
     background: theme.palette.common.orange,
